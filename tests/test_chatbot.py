@@ -27,7 +27,7 @@ class TestChatbot(TestCase):
                 get_amount()
             
             # Assuring that amount must be a numeric type.
-            self.assertEqual(str(cm.exception),)
+            self.assertEqual(str(cm.exception), "Amount must be a numeric type.")
  
     #Test that get_amount raises ValueError for zero input.
     def test_get_amount_zero(self):
@@ -35,7 +35,7 @@ class TestChatbot(TestCase):
             with self.assertRaises(ValueError) as cm:
                 get_amount()
             # Amount must be a value greater than zero.
-            self.assertEqual(str(cm.exception),)
+            self.assertEqual(str(cm.exception), "Amount must be a value greater than zero")
 
     # Test that get_amount raises ValueError for negative input.
     def test_get_amount_negative(self):
@@ -43,7 +43,7 @@ class TestChatbot(TestCase):
             with self.assertRaises(ValueError) as cm:
                 get_amount()
             # Amount must be a value greater than zero.
-            self.assertEqual(str(cm.exception),)
+            self.assertEqual(str(cm.exception),"Amount must be a value greater than zero")
 
     # Test that get_amount returns a float for valid positive input.
     def test_get_amount_valid(self):
