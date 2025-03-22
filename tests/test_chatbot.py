@@ -134,6 +134,19 @@ class TestChatbot(TestCase):
         with self.assertRaises(ValueError) as cm:
              make_deposit(123456, -100.0)
         self.assertEqual(str(cm.exception), "Amount must be a value greater than zero.")
+    
+    @patch('builtins.input', return_value="withdraw")
+    def test_get_task_invalid(self, mock_input):
+        """Test that get_task raises ValueError for invalid task."""
+        with self.assertRaises(ValueError) as cm:
+            get_task()
+        self.assertEqual(str(cm.exception), '"withdraw" is an unknown task.')
+
+    @patch('builtins.input', return_value="EXIT")
+    def test_get_task_valid(self, mock_input):
+        """Test that get_task returns valid task in lowercase."""
+        result = get_task()
+        self.assertEqual(result, "exit")
 
 if __name__ == '__main__':
     main()
