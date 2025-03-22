@@ -10,7 +10,7 @@ Example:
     python -m unittest tests/test_chatbot.py
 """
 
-__author__ = "COMP-1327 Faculty"
+__author__ = "COMP-1327 Gurtaj Singh"
 __version__ = "1.0.2025"
 
 from unittest import TestCase, main
