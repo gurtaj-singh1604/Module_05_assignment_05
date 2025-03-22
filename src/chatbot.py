@@ -97,6 +97,12 @@ def make_deposit(account_number, amount):
     # Return the confirmation message
     return f"You have made a deposit of {formatted_amount} to account {account_number}."
 
+def get_task():
+    task = input("What would you like to do (balance/deposit/exit)?: ").lower()
+    if task not in VALID_TASKS:
+        raise ValueError(f'"{task}" is an unknown task.')
+    return task
+    
 def chatbot():
     """Performs the Chatbot functionality."""
     COMPANY_NAME = "PiXELL River Financial"
