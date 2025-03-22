@@ -15,7 +15,7 @@ __version__ = "1.0.2025"
 
 from unittest import TestCase, main
 from unittest.mock import patch
-from src.chatbot import ACCOUNTS, VALID_TASKS, get_amount, get_balance
+from src.chatbot import ACCOUNTS, VALID_TASKS, get_amount, get_balance, make_deposit
 
 #Unit tests for the chatbot module.
 class TestChatbot(TestCase):
@@ -85,5 +85,55 @@ class TestChatbot(TestCase):
         # Assert
         self.assertEqual(result, expected_message)
     
+    def setUp(self):
+    # Reset ACCOUNTS to initial state before each test
+        ACCOUNTS.clear()
+        ACCOUNTS.update({
+        123456: {"balance": 1000.0},
+        789012: {"balance": 2000.0}
+    })
+    
+    def test_make_deposit_success(self):
+        """Test that make_deposit updates the balance and returns the correct message."""
+        account_number = 123456
+        amount = 500.01
+        initial_balance = ACCOUNTS[account_number]["balance"]  # Capture initial balance
+        expected_message = f"You have made a deposit of ${amount:,.2f} to account {account_number}."
+        
+        result = make_deposit(account_number, amount)
+        
+        self.assertEqual(result, expected_message)  # Check the returned message
+        self.assertEqual(ACCOUNTS[account_number]["balance"], initial_balance + amount)
+                         
+    def test_make_deposit_non_integer_account(self):
+        """Test that make_deposit raises TypeError for non-integer account number."""
+        with self.assertRaises(TypeError) as cm:
+            make_deposit("123456", 100.0)
+        self.assertEqual(str(cm.exception), "Account number must be an int type.")
+
+    def test_make_deposit_non_existent_account(self):
+        """Test that make_deposit raises ValueError for non-existent account number."""
+        with self.assertRaises(ValueError) as cm:
+            make_deposit(999999, 100.0)
+        self.assertEqual(str(cm.exception), "Account number does not exist.")
+
+    def test_make_deposit_non_numeric_amount(self):
+        """Test that make_deposit raises ValueError for non-numeric amount."""
+        with self.assertRaises(ValueError) as cm:
+            make_deposit(123456, "abc")
+        self.assertEqual(str(cm.exception), "Amount must be a numeric type.")
+
+    def test_make_deposit_zero_amount(self):
+        """Test that make_deposit raises ValueError for zero amount."""
+        with self.assertRaises(ValueError) as cm:
+            make_deposit(123456, 0)
+        self.assertEqual(str(cm.exception), "Amount must be a value greater than zero.")
+
+    def test_make_deposit_negative_amount(self):
+        """Test that make_deposit raises ValueError for negative amount."""
+        with self.assertRaises(ValueError) as cm:
+             make_deposit(123456, -100.0)
+        self.assertEqual(str(cm.exception), "Amount must be a value greater than zero.")
+
 if __name__ == '__main__':
     main()
