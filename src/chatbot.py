@@ -71,6 +71,32 @@ def get_balance(account_number):
     # Return the formatted string
     return f"Your current balance for account {account_number} is {formatted_balance}."
 
+def make_deposit(account_number, amount):
+    # Validate that account_number is an integer
+    if not isinstance(account_number, int):
+        raise TypeError("Account number must be an int type.")
+
+    # Validate that account_number exists in ACCOUNTS
+    if account_number not in ACCOUNTS:
+        raise ValueError("Account number does not exist.")
+
+    # Validate that amount is numeric (int or float)
+    if not isinstance(amount, (int, float)):
+        raise ValueError("Amount must be a numeric type.")
+
+    # Validate that amount is greater than zero
+    if amount <= 0:
+        raise ValueError("Amount must be a value greater than zero.")
+
+    # Update the balance in ACCOUNTS by adding the amount
+    ACCOUNTS[account_number]["balance"] += float(amount)
+
+    # Format the amount as currency (e.g., $1,500.01)
+    formatted_amount = f"${amount:,.2f}"
+
+    # Return the confirmation message
+    return f"You have made a deposit of {formatted_amount} to account {account_number}."
+
 def chatbot():
     """Performs the Chatbot functionality."""
     COMPANY_NAME = "PiXELL River Financial"

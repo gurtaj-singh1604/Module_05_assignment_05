@@ -84,6 +84,6 @@ class TestChatbot(TestCase):
         result = get_balance(valid_account_number)
         # Assert
         self.assertEqual(result, expected_message)
-
+    
 if __name__ == '__main__':
     main()
