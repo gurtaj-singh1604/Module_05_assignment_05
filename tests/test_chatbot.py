@@ -15,7 +15,7 @@ __version__ = "1.0.2025"
 
 from unittest import TestCase, main
 from unittest.mock import patch
-from src.chatbot import ACCOUNTS, VALID_TASKS, get_amount, get_balance, make_deposit
+from src.chatbot import ACCOUNTS, VALID_TASKS, get_amount, get_balance, make_deposit, get_task
 
 #Unit tests for the chatbot module.
 class TestChatbot(TestCase):
