@@ -13,6 +13,7 @@ Example:
 __author__ = "COMP-1327 Gurtaj Singh"
 __version__ = "1.0.2025"
 
+import unittest
 from unittest import TestCase, main
 from unittest.mock import patch
 from src.chatbot import ACCOUNTS, VALID_TASKS, get_amount, get_balance, make_deposit, get_task
@@ -37,7 +38,7 @@ class TestChatbot(TestCase):
             with self.assertRaises(ValueError) as cm:
                 get_amount()
             # (Assert)Amount must be a value greater than zero.
-            self.assertEqual(str(cm.exception), "Amount must be a value greater than zero")
+            self.assertEqual(str(cm.exception), "Amount must be a value greater than zero.")
 
     # Test that get_amount raises ValueError for negative input.
     def test_get_amount_negative(self):
@@ -46,7 +47,7 @@ class TestChatbot(TestCase):
             with self.assertRaises(ValueError) as cm:
                 get_amount()
             # (Assert)Amount must be a value greater than zero.
-            self.assertEqual(str(cm.exception),"Amount must be a value greater than zero")
+            self.assertEqual(str(cm.exception),"Amount must be a value greater than zero.")
 
     # Test that get_amount returns a float for valid positive input
     def test_get_amount_valid(self):
